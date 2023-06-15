@@ -1,4 +1,3 @@
-%matplotlib inline
 import matplotlib.pyplot as plt
 
 def return_dataset_images():
