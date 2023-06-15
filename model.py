@@ -23,3 +23,6 @@ class Net(nn.Module):
         x = self.conv7(x)
         x = x.view(-1, 10) #1x1x10> 10
         return F.log_softmax(x, dim=-1)
+
+def model_summary(model, imput_size):
+        summary(model, input_size)
