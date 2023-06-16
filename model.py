@@ -16,7 +16,7 @@ class Net_1(nn.Module):
         self.conv4 = nn.Conv2d(8, 8, 3, padding=1) #14 > 14 | 14
         self.pool2 = nn.MaxPool2d(2, 2) # 14 > 7 | 28
         self.conv5 = nn.Conv2d(8, 8, 3) # 7 > 5 | 30
-        self.conv6 = nn.Conv2d(4, 4, 3) # 5 > 3 | 32 | 3*3*1024 | 3x3x1024x10 | 
+        self.conv6 = nn.Conv2d(8, 4, 3) # 5 > 3 | 32 | 3*3*1024 | 3x3x1024x10 | 
         self.conv7 = nn.Conv2d(4, 10, 3) # 3 > 1 | 34 | > 1x1x10
         
     def forward(self, x):
