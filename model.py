@@ -6,9 +6,24 @@ from torchsummary import summary
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 
-class Net(nn.Module):
+#Base Model
+class Net_1(nn.Module):
     def __init__(self):
-        super(Net, self).__init__()
+        super(Net_1, self).__init__()
+        self.conv1 = nn.Conv2d(1, 32, 3, padding=1) # 28>28 | 3
+        self.conv2 = nn.Conv2d(32, 64, 3, padding=1) # 28 > 28 |  5
+        self.pool1 = nn.MaxPool2d(2, 2) # 28 > 14 | 10
+        self.conv3 = nn.Conv2d(64, 128, 3, padding=1) # 14> 14 | 12
+        self.conv4 = nn.Conv2d(128, 256, 3, padding=1) #14 > 14 | 14
+        self.pool2 = nn.MaxPool2d(2, 2) # 14 > 7 | 28
+        self.conv5 = nn.Conv2d(256, 512, 3) # 7 > 5 | 30
+        self.conv6 = nn.Conv2d(512, 1024, 3) # 5 > 3 | 32 | 3*3*1024 | 3x3x1024x10 | 
+        self.conv7 = nn.Conv2d(1024, 10, 3) # 3 > 1 | 34 | > 1x1x10
+
+#model 2
+class Net_2(nn.Module):
+    def __init__(self):
+        super(Net_2, self).__init__()
         self.conv1 = nn.Conv2d(1, 32, 3, padding=1) # 28>28 | 3
         self.conv2 = nn.Conv2d(32, 64, 3, padding=1) # 28 > 28 |  5
         self.pool1 = nn.MaxPool2d(2, 2) # 28 > 14 | 10
@@ -32,12 +47,15 @@ def model_summary(model, imput_size):
         summary(model, input_size)
 
 
+
+#Train and Test
+
 train_losses = []
 test_losses = []
 train_acc = []
 test_acc = []
 
-def train(model, device, train_loader, optimizer, epoch):
+def model_train(model, device, train_loader, optimizer, epoch):
   model.train()
   pbar = tqdm(train_loader)
   correct = 0
@@ -71,7 +89,7 @@ def train(model, device, train_loader, optimizer, epoch):
     pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} Accuracy={100*correct/processed:0.2f}')
     train_acc.append(100*correct/processed)
 
-def test(model, device, test_loader):
+def model_test(model, device, test_loader):
     model.eval()
     test_loss = 0
     correct = 0
