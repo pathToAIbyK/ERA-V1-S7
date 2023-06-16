@@ -99,7 +99,7 @@ class Net_4(nn.Module):
         self.conv7 = nn.Conv2d(16, 10, 3) # 3 > 1 | 34 | > 1x1x10
         self.dropout = nn.Dropout(0.5)
     def forward(self, x):
-        x = self.pool1(self.dropout(F.relu(self.conv2(self.dropout(F.relu(self.conv1(x)))))))
+        x = self.pool1(self.dropout(F.relu(self.conv2(F.relu(self.conv1(x))))))
         x = self.pool2(self.dropout(F.relu(self.conv4(self.dropout(F.relu(self.conv3(x)))))))
         x = self.dropout(F.relu(self.conv6(self.dropout(F.relu(self.conv5(x))))))
         # x = F.relu(self.conv7(x))
