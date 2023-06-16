@@ -1,7 +1,6 @@
 import  torch
 import  torch.nn as nn
 import  torch.nn.functional as F
-!pip install torchsummary
 from torchsummary import summary
 from tqdm import tqdm
 import matplotlib.pyplot as plt
@@ -43,7 +42,7 @@ class Net_2(nn.Module):
         x = x.view(-1, 10) #1x1x10> 10
         return F.log_softmax(x, dim=-1)
 
-def model_summary(model, imput_size):
+def model_summary(model, input_size):
         summary(model, input_size)
 
 
