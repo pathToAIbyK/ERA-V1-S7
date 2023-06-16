@@ -18,7 +18,16 @@ class Net_1(nn.Module):
         self.conv5 = nn.Conv2d(256, 512, 3) # 7 > 5 | 30
         self.conv6 = nn.Conv2d(512, 1024, 3) # 5 > 3 | 32 | 3*3*1024 | 3x3x1024x10 | 
         self.conv7 = nn.Conv2d(1024, 10, 3) # 3 > 1 | 34 | > 1x1x10
-
+        
+    def forward(self, x):
+        x = self.pool1(F.relu(self.conv2(F.relu(self.conv1(x)))))
+        x = self.pool2(F.relu(self.conv4(F.relu(self.conv3(x)))))
+        x = F.relu(self.conv6(F.relu(self.conv5(x))))
+        # x = F.relu(self.conv7(x))
+        x = self.conv7(x)
+        x = x.view(-1, 10) #1x1x10> 10
+        return F.log_softmax(x, dim=-1)
+        
 #model 2
 class Net_2(nn.Module):
     def __init__(self):
