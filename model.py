@@ -70,7 +70,7 @@ class Net_3(nn.Module):
         self.conv5 = nn.Conv2d(8, 16, 3) # 7 > 5 | 30
         self.conv6 = nn.Conv2d(16, 8, 3) # 5 > 3 | 32 | 3*3*1024 | 3x3x1024x10 | 
         self.conv7 = nn.Conv2d(8, 10, 3) # 3 > 1 | 34 | > 1x1x10
-    self.dropout = nn.Dropout(0.5)
+        self.dropout = nn.Dropout(0.5)
     def forward(self, x):
         x = self.pool1(F.relu(self.conv2(F.relu(self.conv1(x)))))
         x = self.dropout(x)
