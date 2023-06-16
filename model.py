@@ -127,7 +127,7 @@ class Net_5(nn.Module):
         self.conv5 = nn.Conv2d(8, 8, 3) # 7 > 5 | 30
         self.batch5 = nn.BatchNorm2d(8)
         self.conv6 = nn.Conv2d(8, 16, 3) # 5 > 3 | 32 | 3*3*32 | 3x3x32x10 |
-        self.batch4 = nn.BatchNorm2d(16)
+        self.batch6 = nn.BatchNorm2d(16)
         self.conv7 = nn.Conv2d(16, 10, 3) # 3 > 1 | 34 | > 1x1x10
         self.dropout = nn.Dropout(0.1)
     def forward(self, x):
