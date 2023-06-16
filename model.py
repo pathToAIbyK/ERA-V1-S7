@@ -94,9 +94,9 @@ class Net_4(nn.Module):
         self.conv3 = nn.Conv2d(16, 8, 3, padding=1) # 14> 14 | 12
         self.conv4 = nn.Conv2d(8, 8, 3, padding=1) #14 > 14 | 14
         self.pool2 = nn.MaxPool2d(2, 2) # 14 > 7 | 28
-        self.conv5 = nn.Conv2d(8, 16, 3) # 7 > 5 | 30
-        self.conv6 = nn.Conv2d(16, 32, 3) # 5 > 3 | 32 | 3*3*32 | 3x3x32x10 | 
-        self.conv7 = nn.Conv2d(32, 10, 3) # 3 > 1 | 34 | > 1x1x10
+        self.conv5 = nn.Conv2d(8, 8, 3) # 7 > 5 | 30
+        self.conv6 = nn.Conv2d(8, 16, 3) # 5 > 3 | 32 | 3*3*32 | 3x3x32x10 | 
+        self.conv7 = nn.Conv2d(16, 10, 3) # 3 > 1 | 34 | > 1x1x10
         self.dropout = nn.Dropout(0.5)
     def forward(self, x):
         x = self.pool1(F.relu(self.dropout(self.conv2(F.relu(self.dropout(self.conv1(x)))))))
