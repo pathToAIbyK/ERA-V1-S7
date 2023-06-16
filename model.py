@@ -28,6 +28,9 @@ class Net_1(nn.Module):
         x = x.view(-1, 10) #1x1x10> 10
         return F.log_softmax(x, dim=-1)
         
+    def model_summary(model, input_size):
+        summary(model, input_size)
+        
 #model 2
 class Net_2(nn.Module):
     def __init__(self):
@@ -51,8 +54,9 @@ class Net_2(nn.Module):
         x = x.view(-1, 10) #1x1x10> 10
         return F.log_softmax(x, dim=-1)
 
-def model_summary(model, input_size):
+    def model_summary(model, input_size):
         summary(model, input_size)
+
 
 
 
