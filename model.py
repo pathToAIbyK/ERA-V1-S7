@@ -114,9 +114,9 @@ class Net_4(nn.Module):
 class Net_5(nn.Module):
     def __init__(self):
         super(Net_5, self).__init__()
-        self.conv1 = nn.Conv2d(1, 16, 3, padding=1) # 28>28 | 3
-        self.batch1 = nn.BatchNorm2d(16)
-        self.conv2 = nn.Conv2d(16, 16, 3, padding=1) # 28 > 28 |  5
+        self.conv1 = nn.Conv2d(1, 8, 3, padding=1) # 28>28 | 3
+        self.batch1 = nn.BatchNorm2d(8)
+        self.conv2 = nn.Conv2d(8, 16, 3, padding=1) # 28 > 28 |  5
         self.batch2 = nn.BatchNorm2d(16)
         self.pool1 = nn.MaxPool2d(2, 2) # 28 > 14 | 10
         self.conv3 = nn.Conv2d(16, 8, 3, padding=1) # 14> 14 | 12
@@ -129,7 +129,39 @@ class Net_5(nn.Module):
         self.conv6 = nn.Conv2d(8, 16, 3) # 5 > 3 | 32 | 3*3*32 | 3x3x32x10 |
         self.batch6 = nn.BatchNorm2d(16)
         self.conv7 = nn.Conv2d(16, 10, 3) # 3 > 1 | 34 | > 1x1x10
-        self.dropout = nn.Dropout(0.25)
+        self.dropout = nn.Dropout(0.1)
+    def forward(self, x):
+        x = self.pool1(self.dropout(self.batch2(F.relu(self.conv2(self.batch1(F.relu(self.conv1(x))))))))
+        x = self.pool2(self.dropout(self.batch4(F.relu(self.conv4(self.dropout(self.batch3(F.relu(self.conv3(x)))))))))
+        x = self.dropout(self.batch6(F.relu(self.conv6(self.dropout(self.batch5(F.relu(self.conv5(x))))))))
+        # x = F.relu(self.conv7(x))
+        x = self.conv7(x)
+        x = x.view(-1, 10) #1x1x10> 10
+        return F.log_softmax(x, dim=-1)
+
+    def model_summary(model, input_size):
+        summary(model, input_size)
+
+#model 6
+class Net_6(nn.Module):
+    def __init__(self):
+        super(Net_6, self).__init__()
+        self.conv1 = nn.Conv2d(1, 8, 3, padding=1) # 28>28 | 3
+        self.batch1 = nn.BatchNorm2d(8)
+        self.conv2 = nn.Conv2d(8, 16, 3, padding=1) # 28 > 28 |  5
+        self.batch2 = nn.BatchNorm2d(16)
+        self.pool1 = nn.MaxPool2d(2, 2) # 28 > 14 | 10
+        self.conv3 = nn.Conv2d(16, 8, 3, padding=1) # 14> 14 | 12
+        self.batch3 = nn.BatchNorm2d(8)
+        self.conv4 = nn.Conv2d(8, 8, 3, padding=1) #14 > 14 | 14
+        self.batch4 = nn.BatchNorm2d(8)
+        self.pool2 = nn.MaxPool2d(2, 2) # 14 > 7 | 28
+        self.conv5 = nn.Conv2d(8, 8, 3) # 7 > 5 | 30
+        self.batch5 = nn.BatchNorm2d(8)
+        self.conv6 = nn.Conv2d(8, 16, 3) # 5 > 3 | 32 | 3*3*32 | 3x3x32x10 |
+        self.batch6 = nn.BatchNorm2d(16)
+        self.conv7 = nn.Conv2d(16, 10, 3) # 3 > 1 | 34 | > 1x1x10
+        self.dropout = nn.Dropout(0.1)
     def forward(self, x):
         x = self.pool1(self.dropout(self.batch2(F.relu(self.conv2(self.batch1(F.relu(self.conv1(x))))))))
         x = self.pool2(self.dropout(self.batch4(F.relu(self.conv4(self.dropout(self.batch3(F.relu(self.conv3(x)))))))))
