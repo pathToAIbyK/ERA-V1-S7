@@ -1,9 +1,11 @@
 import matplotlib.pyplot as plt
 
-def return_dataset_images():
+dataiter = iter(train_loader)
+images, labels = next(dataiter)
+
+def return_dataset_images(train_loader,total_images):
   figure = plt.figure()
-  num_of_images = 60
-  for index in range(1, num_of_images + 1):
+  for index in range(1, total_images + 1):
       plt.subplot(6, 10, index)
       plt.axis('off')
       plt.imshow(images[index].numpy().squeeze(), cmap='gray_r')
