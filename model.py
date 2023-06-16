@@ -147,7 +147,7 @@ class Net_6(nn.Module):
     def __init__(self):
         super(Net_6, self).__init__()
         self.conv1 = nn.Conv2d(1, 16, 3, padding=1) # 28>28 | 3
-        self.batch1 = nn.BatchNorm2d(8)
+        self.batch1 = nn.BatchNorm2d(16)
         self.conv2 = nn.Conv2d(16, 16, 3, padding=1) # 28 > 28 |  5
         self.batch2 = nn.BatchNorm2d(16)
         self.pool1 = nn.MaxPool2d(2, 2) # 28 > 14 | 10
